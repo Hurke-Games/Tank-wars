@@ -1,0 +1,8 @@
+{
+  "name": "Remix Advance Grid: 500x500 Tactical War",
+  "description": "A 32-bit GBA style turn-based strategy game on a 50x50 grid with 50 cities, fog of war, tank divisions, and deep supply-line siege mechanics.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
