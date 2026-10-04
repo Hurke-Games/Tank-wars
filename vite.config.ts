@@ -4,8 +4,8 @@ import path from 'path';
 import {defineConfig} from 'vite';
 
 export default defineConfig(() => {
-  // Support GitHub Actions / GitHub Pages repository path (/Tank-wars/) and relative/dev environments
-  const base = process.env.BASE_URL || (process.env.GITHUB_ACTIONS ? '/Tank-wars/' : './');
+  // Relative base './' ensures assets load correctly regardless of deployment subfolder (/Tank-wars/ or /Tank-wars/docs/)
+  const base = process.env.BASE_URL || './';
 
   return {
     base,
