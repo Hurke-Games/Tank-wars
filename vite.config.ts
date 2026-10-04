@@ -4,13 +4,15 @@ import path from 'path';
 import {defineConfig} from 'vite';
 
 export default defineConfig(() => {
+  // Support GitHub Actions / GitHub Pages repository path (/Tank-wars/) and relative/dev environments
+  const base = process.env.BASE_URL || (process.env.GITHUB_ACTIONS ? '/Tank-wars/' : './');
+
   return {
-    // Relative base ensures assets load correctly on GitHub Pages (e.g. https://hurke-games.github.io/Tank-wars/)
-    base: './',
+    base,
     plugins: [react(), tailwindcss()],
     resolve: {
       alias: {
-        '@': path.resolve(__dirname, '.'),
+        '@': path.resolve(import.meta.dirname, '.'),
       },
     },
     server: {

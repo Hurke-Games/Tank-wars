@@ -1,20 +1,13 @@
 import React from 'react';
 import {
   Shield,
-  Swords,
   MapPin,
   Waves,
   Zap,
   Map,
-  Download,
-  Upload,
   BookOpen,
-  Github,
-  CheckCircle2,
   Sliders,
-  ExternalLink,
-  Target,
-  Crown
+  Target
 } from 'lucide-react';
 
 interface WebsiteLandingSectionsProps {
@@ -37,7 +30,7 @@ export const WebsiteLandingSections: React.FC<WebsiteLandingSectionsProps> = ({
 
           <div className="max-w-3xl space-y-4 relative z-10">
             <div className="inline-flex items-center gap-2 px-2.5 py-1 bg-amber-500/10 border border-amber-500/40 text-amber-300 text-[10px] font-bold uppercase tracking-wider">
-              <span>★ Official Release · hurke-games.github.io/Tank-wars</span>
+              <span>★ Tactical Warfare Engine · 32-Bit GBA Edition</span>
             </div>
 
             <h2
@@ -162,7 +155,7 @@ export const WebsiteLandingSections: React.FC<WebsiteLandingSectionsProps> = ({
               </div>
               <h4 className="font-bold text-white text-sm">Scenario Builder & Sharing</h4>
               <p className="text-[11px] text-slate-400 leading-relaxed">
-                Full visual editor to build custom maps with water barriers, forests, cities, and starting tank forces.
+                Full visual editor to build custom maps with water barriers, forests, cities, and stationed tanks.
                 Export to <strong className="text-white">.tankwar.json</strong>, import shared files, and manage up to 10 stored scenarios locally.
               </p>
             </div>
@@ -220,106 +213,6 @@ export const WebsiteLandingSections: React.FC<WebsiteLandingSectionsProps> = ({
                 AI commander strategies, fog of war, and tactical supply lines intact.
               </p>
             </div>
-          </div>
-        </section>
-
-        {/* Section 4: Faction Dossiers */}
-        <section className="space-y-4">
-          <h3
-            className="text-base font-bold uppercase text-slate-200 tracking-wider"
-            style={{ fontFamily: "'Press Start 2P', monospace", fontSize: '11px' }}
-          >
-            Continental Factions
-          </h3>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
-            {/* Blue Guard */}
-            <div className="bg-[#0f172a] border-l-4 border-blue-500 border-t border-r border-b border-slate-800 p-4 space-y-2">
-              <div className="flex items-center justify-between">
-                <span className="font-bold text-blue-400 text-xs uppercase">Blue Guard</span>
-                <span className="text-[9px] text-blue-300 bg-blue-950/60 px-1.5 py-0.5 border border-blue-800">
-                  PLAYER 1 (HUMAN)
-                </span>
-              </div>
-              <p className="text-[10px] text-slate-400">
-                1st Armored Division under direct player command. Specializes in flexible redeployment, combined arms assaults, and surgical supply cutoffs.
-              </p>
-            </div>
-
-            {/* Red Legion */}
-            <div className="bg-[#0f172a] border-l-4 border-red-500 border-t border-r border-b border-slate-800 p-4 space-y-2">
-              <div className="flex items-center justify-between">
-                <span className="font-bold text-red-400 text-xs uppercase">Red Legion</span>
-                <span className="text-[9px] text-red-300 bg-red-950/60 px-1.5 py-0.5 border border-red-800">
-                  RIVAL AI 2
-                </span>
-              </div>
-              <p className="text-[10px] text-slate-400">
-                Crimson Corp armored vanguard. Default Berserk doctrine: commits 100% of tanks to assault and relentlessly expands the fog perimeter.
-              </p>
-            </div>
-
-            {/* Green Fleet */}
-            <div className="bg-[#0f172a] border-l-4 border-emerald-500 border-t border-r border-b border-slate-800 p-4 space-y-2">
-              <div className="flex items-center justify-between">
-                <span className="font-bold text-emerald-400 text-xs uppercase">Green Fleet</span>
-                <span className="text-[9px] text-emerald-300 bg-emerald-950/60 px-1.5 py-0.5 border border-emerald-800">
-                  RIVAL AI 3
-                </span>
-              </div>
-              <p className="text-[10px] text-slate-400">
-                Emerald Division mechanized troops. Default Balanced doctrine: retains ~30% reserve around cities and focuses ~80% of attacks on player threats.
-              </p>
-            </div>
-
-            {/* Gold Dominion */}
-            <div className="bg-[#0f172a] border-l-4 border-amber-500 border-t border-r border-b border-slate-800 p-4 space-y-2">
-              <div className="flex items-center justify-between">
-                <span className="font-bold text-amber-400 text-xs uppercase">Gold Dominion</span>
-                <span className="text-[9px] text-amber-300 bg-amber-950/60 px-1.5 py-0.5 border border-amber-800">
-                  RIVAL AI 4
-                </span>
-              </div>
-              <p className="text-[10px] text-slate-400">
-                Solar Strike continental fortress legion. Default Defensive doctrine: fortifies ~60% reserves around cities and divides offensive actions evenly.
-              </p>
-            </div>
-          </div>
-        </section>
-
-        {/* Section 5: GitHub Pages & Technical Deployment */}
-        <section className="bg-[#0b0f19] border border-slate-800 p-6 space-y-3">
-          <div className="flex items-center gap-2 text-slate-200 font-bold uppercase text-xs">
-            <Github className="w-4 h-4 text-white" />
-            <span>GitHub Pages Deployment & Open Source Architecture</span>
-          </div>
-
-          <p className="text-slate-400 text-xs leading-relaxed">
-            This application is optimized for zero-configuration deployment to GitHub Pages at{' '}
-            <a
-              href="https://hurke-games.github.io/Tank-wars/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-amber-400 underline font-semibold hover:text-amber-300"
-            >
-              https://hurke-games.github.io/Tank-wars/
-            </a>
-            . Built with Vite and relative base asset resolution (<code className="bg-[#1e293b] px-1 py-0.5 text-sky-300">base: './'</code>)
-            so scripts and stylesheets never load as blank pages regardless of repository subpath nesting. Includes automated GitHub Actions workflow for push-to-deploy.
-          </p>
-
-          <div className="flex items-center gap-4 pt-2 text-[11px]">
-            <a
-              href="https://github.com/hurke-games/Tank-wars"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-sky-400 hover:text-sky-300 flex items-center gap-1 font-bold"
-            >
-              <span>View Repository on GitHub</span>
-              <ExternalLink className="w-3 h-3" />
-            </a>
-            <span className="text-slate-600">·</span>
-            <span className="text-slate-500">React 19 + TypeScript + Vite + Tailwind CSS</span>
           </div>
         </section>
       </div>

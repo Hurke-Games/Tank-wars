@@ -5,11 +5,7 @@ import {
   Minimize2,
   Map,
   BookOpen,
-  Github,
-  Sliders,
-  ExternalLink,
-  ShieldAlert,
-  Flame
+  Sliders
 } from 'lucide-react';
 
 interface WebsitePortalHeaderProps {
@@ -49,7 +45,7 @@ export const WebsitePortalHeader: React.FC<WebsitePortalHeaderProps> = ({
                 </span>
               </div>
               <p className="text-[9px] text-slate-400 hidden sm:block">
-                Tank Wars: Advance Grid · GitHub Pages Edition
+                Tank Wars: Advance Grid · 32-Bit Tactical Strategy
               </p>
             </div>
           </div>
@@ -80,17 +76,6 @@ export const WebsitePortalHeader: React.FC<WebsitePortalHeaderProps> = ({
             <BookOpen className="w-3.5 h-3.5 text-sky-400" />
             <span>Field Manual</span>
           </button>
-
-          <a
-            href="https://github.com/hurke-games/Tank-wars"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="px-2.5 py-1 text-slate-300 hover:text-white hover:bg-slate-800 transition-colors flex items-center gap-1.5"
-          >
-            <Github className="w-3.5 h-3.5 text-slate-400" />
-            <span>GitHub</span>
-            <ExternalLink className="w-2.5 h-2.5 opacity-60" />
-          </a>
         </nav>
 
         {/* Action Controls & Fullscreen Theater Switcher */}
