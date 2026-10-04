@@ -32,11 +32,10 @@ import { StartMenuModal } from './components/StartMenuModal';
 import { ScenarioBuilderModal } from './components/ScenarioBuilderModal';
 import { ScenarioListModal } from './components/ScenarioListModal';
 import { WebsitePortalHeader } from './components/WebsitePortalHeader';
-import { WebsiteLandingSections } from './components/WebsiteLandingSections';
 
 export default function App() {
-  // Website Shell & Display Mode: website portal vs fullscreen arcade theater
-  const [isTheaterMode, setIsTheaterMode] = useState<boolean>(false);
+  // Minimalist Website Shell: standard embedded frame vs full-window/fullscreen mode
+  const [isFullscreen, setIsFullscreen] = useState<boolean>(false);
 
   // Game Configuration & Settings State (Fog of War configured on New Game screen only)
   const [gameSettings, setGameSettings] = useState<GameSettings>({
@@ -1404,48 +1403,51 @@ export default function App() {
     capitalY: 9,
   };
 
-  const handleToggleTheaterMode = () => {
-    setIsTheaterMode((prev) => {
-      const next = !prev;
+  // Fullscreen state listener to keep UI in sync with ESC key or browser events
+  useEffect(() => {
+    const handleFullscreenChange = () => {
+      setIsFullscreen(!!document.fullscreenElement);
       setTimeout(() => {
         window.dispatchEvent(new Event('resize'));
-      }, 50);
+      }, 60);
+    };
+    document.addEventListener('fullscreenchange', handleFullscreenChange);
+    return () => {
+      document.removeEventListener('fullscreenchange', handleFullscreenChange);
+    };
+  }, []);
+
+  const handleToggleFullscreen = () => {
+    setIsFullscreen((prev) => {
+      const next = !prev;
+      if (next && document.documentElement.requestFullscreen && !document.fullscreenElement) {
+        document.documentElement.requestFullscreen().catch(() => {});
+      } else if (!next && document.exitFullscreen && document.fullscreenElement) {
+        document.exitFullscreen().catch(() => {});
+      }
+      setTimeout(() => {
+        window.dispatchEvent(new Event('resize'));
+      }, 60);
       return next;
     });
   };
 
   return (
-    <div
-      className={`flex flex-col select-none font-mono ${
-        isTheaterMode
-          ? 'fixed inset-0 z-40 w-screen h-screen overflow-hidden bg-[#0F172A] text-slate-100'
-          : 'min-h-screen bg-[#070a12] text-slate-100'
-      }`}
-    >
-      {/* Top Hurke Games Portal Header */}
-      <WebsitePortalHeader
-        isTheaterMode={isTheaterMode}
-        onToggleTheaterMode={handleToggleTheaterMode}
-        onOpenNewGame={() => setIsStartMenuOpen(true)}
-        onOpenWorkshop={() => setIsScenarioListOpen(true)}
-        onOpenRules={() => setIsRulesOpen(true)}
-      />
+    <div className="flex flex-col h-screen w-screen overflow-hidden bg-[#070a13] text-slate-100 select-none font-mono">
+      {/* Minimalist Website Header */}
+      {!isFullscreen && (
+        <WebsitePortalHeader
+          isFullscreen={isFullscreen}
+          onToggleFullscreen={handleToggleFullscreen}
+          onOpenNewGame={() => setIsStartMenuOpen(true)}
+          onOpenWorkshop={() => setIsScenarioListOpen(true)}
+          onOpenRules={() => setIsRulesOpen(true)}
+        />
+      )}
 
-      {/* Game Center Cabinet Display */}
-      <div
-        className={
-          isTheaterMode
-            ? 'flex-1 flex flex-col w-full h-full overflow-hidden'
-            : 'w-full bg-[#070a12] py-2 sm:py-5 px-2 sm:px-4 flex justify-center'
-        }
-      >
-        <div
-          className={
-            isTheaterMode
-              ? 'flex-1 flex flex-col w-full h-full overflow-hidden'
-              : 'w-full max-w-7xl h-[78vh] sm:h-[84vh] min-h-[600px] max-h-[960px] bg-[#0F172A] border-4 border-slate-700 shadow-2xl flex flex-col overflow-hidden relative'
-          }
-        >
+      {/* Embedded Game Cabinet Viewport */}
+      <div className={`flex-1 w-full min-h-0 flex flex-col overflow-hidden ${isFullscreen ? 'p-0' : 'p-0 sm:p-2 bg-[#070a13]'}`}>
+        <div className={`flex-1 w-full min-h-0 flex flex-col bg-[#0b0f19] ${isFullscreen ? '' : 'sm:border-2 sm:border-slate-800 shadow-2xl'} relative overflow-hidden`}>
           {/* GBA Top Header Contract (No in-game fog changing button: configured on new game only) */}
           <GbaHeader
             turnDay={turnDay}
@@ -1548,15 +1550,6 @@ export default function App() {
           />
         </div>
       </div>
-
-      {/* Website Landing Sections (Rendered below game cabinet in website portal mode) */}
-      {!isTheaterMode && (
-        <WebsiteLandingSections
-          onOpenNewGame={() => setIsStartMenuOpen(true)}
-          onOpenWorkshop={() => setIsScenarioListOpen(true)}
-          onOpenRules={() => setIsRulesOpen(true)}
-        />
-      )}
 
       {/* Tank Wars Mission Setup & New Game Menu Screen */}
       {isStartMenuOpen && (
